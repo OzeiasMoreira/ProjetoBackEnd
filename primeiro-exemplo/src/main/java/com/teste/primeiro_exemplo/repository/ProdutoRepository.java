@@ -3,6 +3,7 @@ package com.teste.primeiro_exemplo.repository;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ import com.teste.primeiro_exemplo.model.Produto;
 @Repository
 public class ProdutoRepository {
     
-    private  ArrayList<Produto> produtos = new ArrayList<Produto>();
+    private final  ArrayList<Produto> produtos = new ArrayList<>();
     private Integer ultimoId = 0;
 
     /**
@@ -31,7 +32,7 @@ public class ProdutoRepository {
     public Optional<Produto> obterPorId(Integer id){
         return produtos
         .stream()
-        .filter(produto -> produto.getId() == id)
+        .filter(produto -> Objects.equals(produto.getId(), id))
         .findFirst();   
     }
 
@@ -55,7 +56,7 @@ public class ProdutoRepository {
      * @param id do produto que será removido.
      */
     public void deletar(Integer id) {
-        produtos.removeIf(produto -> produto.getId() == id);
+        produtos.removeIf(produto -> Objects.equals(produto.getId(), id));
     }
 
     /**
